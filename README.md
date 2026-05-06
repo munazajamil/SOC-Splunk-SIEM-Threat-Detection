@@ -25,7 +25,7 @@ This project replicates Tier 1–2 SOC analyst workflows including alert triage,
 │  - SOC Dashboard            │
 └─────────────────────────────┘
 ```
----
+```
 🛠️ Tools & Technologies
 Tool	Purpose
 Splunk Enterprise	SIEM — log ingestion, search, alerting
@@ -35,6 +35,8 @@ Hydra	Brute force attack tool
 Windows 11	Victim/target machine
 SwiftOnSecurity Sysmon Config	Optimized Sysmon detection ruleset
 ---
+```
+```
 ⚔️ Attacks Simulated
 Attack 1 — SMB Brute Force (T1110)
 Attack 2 — PowerShell Execution (T1059.001)
@@ -46,20 +48,22 @@ The attacker machine (Kali Linux) used Hydra to perform an SMB brute force attac
 Attack Command (Kali Linux)
 ```bash
 hydra -l testuser -P /usr/share/wordlists/rockyou.txt 192.168.56.1 smb -t 4 -V
-```
-What Was Generated
+```What Was Generated
 19,059 failed login events (EventCode 4625)
 Source IP: `192.168.56.102` (Kali Linux)
 Target user: `testuser`
 Authentication method: NTLM
 Detection Query (SPL)
-```spl
+```
+```
+spl
 index=main source="WinEventLog:Security" EventCode=4625
 | stats count by Account_Name, Source_Network_Address
 | where count > 10
 | eval Threat="Brute Force Detected!"
 | eval MITRE="T1110 - Brute Force"
 | table Account_Name, Source_Network_Address, count, Threat, MITRE
+```
 ```
 MITRE ATT&CK Mapping
 Technique	ID	Tactic
@@ -78,6 +82,7 @@ Attack Commands (Windows — Simulating Post-Exploitation)
 powershell -nop -exec bypass -c "Write-Host 'Simulated Attack'"
 powershell -nop -exec bypass -w hidden -c "IEX 'Write-Host Malware Simulation'"
 ```
+```
 Suspicious Flags Used
 Flag	Meaning	Why Malicious
 `-nop`	No Profile	Bypasses profile restrictions
@@ -90,6 +95,7 @@ index=main sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "pow
 | eval Threat="Suspicious PowerShell Detected!"
 | eval MITRE="T1059.001 - PowerShell"
 | table _time, host, Threat, MITRE
+```
 ```
 MITRE ATT&CK Mapping
 Technique	ID	Tactic
@@ -110,6 +116,7 @@ net localgroup administrators   # List admin group members
 whoami /all                     # Current user privileges
 netstat -ano                    # Active network connections
 ```
+```
 What Was Generated
 26 process creation events (EventCode 4688)
 Multiple suspicious processes logged
@@ -122,12 +129,14 @@ index=main source="WinEventLog:Security" EventCode=4688
 | table _time, User, New_Process_Name, Threat, MITRE
 | head 10
 ```
+```
 MITRE ATT&CK Mapping
 Technique	ID	Tactic
 Account Discovery	T1087	Discovery
 System Network Connections Discovery	T1049	Discovery
 ---
 🔍 MITRE ATT&CK Summary
+```
 ```
 Initial Access → Credential Access → Execution → Discovery
                         │                │            │
@@ -137,7 +146,7 @@ Initial Access → Credential Access → Execution → Discovery
                                                   T1049 Network
                                                   Discovery
 ```
----
+```
 📊 Detection Rules Summary
 Rule Name	EventCode	Logic	MITRE
 Brute Force Detection	4625	Failed logins > 10 from same IP	T1110
@@ -166,6 +175,7 @@ MITRE Techniques Covered	4
 ---
 📁 Project Structure
 ```
+```
 SOC-Splunk-SIEM-ThreatDetection/
 │
 ├── README.md                          # This file
@@ -183,7 +193,7 @@ SOC-Splunk-SIEM-ThreatDetection/
 └── docs/
     └── lab-setup.md                   # Lab setup documentation
 ```
----
+```
 🚀 How to Reproduce
 Prerequisites
 Windows 10/11 machine
@@ -198,6 +208,7 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SwiftOnSecurity/sysmon
 # Install Sysmon with config
 Sysmon64.exe -accepteula -i sysmonconfig-export.xml
 ```
+```
 Step 2: Configure Splunk inputs.conf
 ```ini
 [WinEventLog://Microsoft-Windows-Sysmon/Operational]
@@ -209,12 +220,13 @@ renderXml = false
 index = main
 disabled = false
 ```
+```
 Step 3: Run Attacks
 ```bash
 # From Kali Linux
 hydra -l testuser -P /usr/share/wordlists/rockyou.txt 192.168.56.1 smb -t 4 -V
 ```
----
+```
 📚 References
 Splunk Documentation
 MITRE ATT&CK Framework
