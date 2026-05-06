@@ -271,7 +271,7 @@ hydra -l testuser -P /usr/share/wordlists/rockyou.txt 192.168.56.1 smb -t 4 -V
 
 ## 👩‍💻 Author
 
-**Munnaza Jameel**
+**Munnaza Jamil**
 SOC Analyst (Home Lab)
 📍 Rawalpindi, Pakistan
 🔗 [GitHub](https://github.com/munazajamil)
