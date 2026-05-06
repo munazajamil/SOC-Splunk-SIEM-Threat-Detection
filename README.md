@@ -1,6 +1,7 @@
 🛡️ SIEM Log Monitoring & Threat Detection using Splunk
 
 📌 Project Overview
+
 This project simulates a real-world SOC (Security Operations Center) environment built entirely on a home lab. Using Splunk Enterprise as the SIEM, Sysmon for deep Windows telemetry, and Kali Linux as the attacker machine, I simulated three real attack scenarios, built custom detection rules in SPL, and mapped all findings to the MITRE ATT&CK framework.
 This project replicates Tier 1–2 SOC analyst workflows including alert triage, log analysis, and detection engineering.
 ---
