@@ -221,27 +221,6 @@ Initial Access → Credential Access → Execution → Discovery
 
 ---
 
-## 📁 Project Structure
-
-```
-SOC-Splunk-SIEM-ThreatDetection/
-│
-├── README.md                          # This file
-│
-├── screenshots/
-│   ├── attack1-bruteforce/            # Brute force attack evidence
-│   ├── attack2-powershell/            # PowerShell attack evidence
-│   └── attack3-recon/                 # Reconnaissance evidence
-│
-├── detection-rules/
-│   ├── bruteforce_detection.spl       # SPL query for brute force
-│   ├── powershell_detection.spl       # SPL query for PowerShell
-│   └── recon_detection.spl            # SPL query for recon
-│
-└── docs/
-    └── lab-setup.md                   # Lab setup documentation
-```
-
 ---
 
 ## 🚀 How to Reproduce
